@@ -18,9 +18,9 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = MainActivity.class.getName();
     private EditText to;
     private EditText body;
+    private Button send;
     private OkHttpClient client = new OkHttpClient();
 
     @Override
@@ -30,8 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         to = (EditText) findViewById(R.id.txtNumber);
         body = (EditText) findViewById(R.id.txtMessage);
-        final Button send = (Button) findViewById(R.id.btnSend);
-
+        send = (Button) findViewById(R.id.btnSend);
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
