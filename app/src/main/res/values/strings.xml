@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Twilio SMS</string>
+    <string name="backend_url">https://rocky-savannah-56741.herokuapp.com/sms</string>
 </resources>

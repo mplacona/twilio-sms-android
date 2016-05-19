@@ -36,3 +36,4 @@ captures/
 /.idea/workspace.xml
 /.idea/libraries
 .DS_Store
+strings.xml

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Twilio SMS</string>
+    <string name="backend_url">YOUR_BACKEND_URL_HERE</string>
+</resources>

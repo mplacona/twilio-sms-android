@@ -1,5 +1,6 @@
 package uk.co.placona.twiliosms;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -18,25 +19,27 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText to;
-    private EditText body;
-    private Button send;
-    private OkHttpClient client = new OkHttpClient();
+    private EditText mTo;
+    private EditText mBody;
+    private Button mSend;
+    private OkHttpClient mClient = new OkHttpClient();
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        to = (EditText) findViewById(R.id.txtNumber);
-        body = (EditText) findViewById(R.id.txtMessage);
-        send = (Button) findViewById(R.id.btnSend);
+        mTo = (EditText) findViewById(R.id.txtNumber);
+        mBody = (EditText) findViewById(R.id.txtMessage);
+        mSend = (Button) findViewById(R.id.btnSend);
+        mContext = getApplicationContext();
 
-        send.setOnClickListener(new View.OnClickListener() {
+        mSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    post("YOUR_NGROK_URL", new  Callback(){
+                    post(mContext.getString(R.string.backend_url), new  Callback(){
 
                         @Override
                         public void onFailure(Call call, IOException e) {
@@ -48,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    to.setText("");
-                                    body.setText("");
+                                    mTo.setText("");
+                                    mBody.setText("");
                                     Toast.makeText(getApplicationContext(),"SMS Sent!",Toast.LENGTH_SHORT).show();
                                 }
                             });
@@ -64,15 +67,15 @@ public class MainActivity extends AppCompatActivity {
 
     Call post(String url, Callback callback) throws IOException{
         RequestBody formBody = new FormBody.Builder()
-                .add("To", to.getText().toString())
-                .add("Body", body.getText().toString())
+                .add("To", mTo.getText().toString())
+                .add("Body", mBody.getText().toString())
                 .build();
         Request request = new Request.Builder()
                 .url(url)
                 .post(formBody)
                 .build();
 
-        Call response = client.newCall(request);
+        Call response = mClient.newCall(request);
         response.enqueue(callback);
         return response;
 
